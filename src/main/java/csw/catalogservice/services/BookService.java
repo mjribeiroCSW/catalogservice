@@ -28,6 +28,10 @@ public class BookService
         var bookModel = BookMapper.mapDtoToModel(book);
 
         var bookId = 1;
+
+        bookModel.getId();
+
+        // what
         logger.info("Create book success, id:{}.", bookId);
         return bookId;
     }
