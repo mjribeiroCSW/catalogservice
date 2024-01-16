@@ -44,11 +44,10 @@ pipeline {
 
         stage('Publish') {
             steps {
-                sh 'mvn deploy'
-               /* script {
+               script {
                     def jarFileName = sh(script: 'ls target/*.jar', returnStdout: true).trim()
-                    sh "mvn deploy:deploy-file -Durl=C:/Users/mjribeiro/.m2/repository -Dfile=$jarFileName -DgroupId=com.boar.lil.sdk -DartifactId=your-sdk -Dversion=1.0.0 -Dpackaging=jar -Dmethod=webdav"
-                } */
+                    sh "mvn deploy:deploy-file -Durl=C:/Users/mjribeiro/.m2/repository -Dfile=$jarFileName -DgroupId=csw.catalogservice.dto -DartifactId=dto -Dversion=1.0.0 -Dpackaging=jar -Dmethod=webdav"
+               }
             }
         }
     }
