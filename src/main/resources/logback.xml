@@ -1,10 +1,19 @@
 <configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{ISO8601} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>C:/SitesLog/Catalog.log</file>
         <encoder>
             <pattern>%date{ISO8601} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+    <root level="info">
+        <appender-ref ref="CONSOLE" />
+    </root>
     <root level="info">
         <appender-ref ref="FILE" />
     </root>
