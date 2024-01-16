@@ -28,7 +28,7 @@ pipeline {
                 }
             }
         }
-        /*
+
         // Run integration tests
         stage('Integration Test') {
             steps {
@@ -41,7 +41,6 @@ pipeline {
                 }
             }
         }
-        */
 
         stage('Publish') {
             steps {
