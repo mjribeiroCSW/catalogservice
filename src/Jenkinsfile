@@ -2,6 +2,17 @@ pipeline {
     agent any
 
     stages {
+        stage('Start PostgreSQL') {
+                    steps {
+                        script {
+                            sh 'docker pull postgres:latest'
+                            sh 'docker run -d --name test-postgres -e POSTGRES_DB=booksdb -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres'
+
+                            sh "while ! docker exec test-postgres pg_isready -U postgres -h localhost -p 5432; do sleep 1; done"
+                        }
+                    }
+        }
+
         // checkout de master, based on jenkins configuration
         stage('Checkout') {
             steps {
@@ -38,6 +49,15 @@ pipeline {
             post {
                 always {
                     junit '**/target/surefire-reports/TEST-*.xml'
+                }
+            }
+        }
+
+        stage('Stop PostgreSQL') {
+            steps {
+                script {
+                    sh 'docker stop test-postgres'
+                    sh 'docker rm test-postgres'
                 }
             }
         }
