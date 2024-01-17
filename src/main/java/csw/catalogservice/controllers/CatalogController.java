@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,12 +73,25 @@ public class CatalogController {
     // hasAnyAuthority for multiple
     // @PreAuthorize("hasAnyAuthority('read_books', 'SCOPE_manage-books')")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = String.class)), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = BookDto.class)), mediaType = "application/json")}),
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @GetMapping("/{id}")
-    public String getBookById(@PathVariable int id) {
-        return "one book";
+    public ResponseEntity<BookDto> getBookById(
+            @PathVariable int id) {
+        try
+        {
+            var result = bookService.GetBook(id);
+            return ResponseEntity.ok(result);
+        }
+        catch (EntityNotFoundException e)
+        {
+            return ResponseEntity.notFound().build();
+        }
+        catch (SQLException e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PutMapping("/Book/{id}")

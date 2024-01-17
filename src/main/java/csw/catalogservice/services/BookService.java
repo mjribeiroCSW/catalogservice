@@ -25,14 +25,31 @@ public class BookService
     public int CreateBook(BookDto book) throws SQLException {
         logger.info("Create Book started.");
 
-        var bookModel = BookMapper.mapDtoToModel(book);
+        var bookToSave = BookMapper.mapDtoToModel(book);
 
-        var bookId = 1;
+        var result = bookRepository.save(bookToSave);
 
-        bookModel.getId();
+        logger.info("Create Book success, id:{}.", result.getId());
+        return result.getId();
+    }
 
-        // what
-        logger.info("Create book success, id:{}.", bookId);
-        return bookId;
+    public BookDto GetBook(int id) throws SQLException {
+        logger.info("Get Book started.");
+
+        var result = bookRepository.findById(id);
+
+        if (result.isPresent()) {
+            var bookDto = BookMapper.mapModelToDto(result.get());
+
+            logger.info("Get Book success, Name:{}.", bookDto.getOriginalTitle());
+
+            return bookDto;
+        }
+        else
+        {
+            logger.info("Book not found with ID: {}", id);
+
+            return null;
+        }
     }
 }

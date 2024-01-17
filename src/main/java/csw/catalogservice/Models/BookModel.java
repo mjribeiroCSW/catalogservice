@@ -6,24 +6,23 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "book")
+@Table(name = "book", schema = "bookschema")
 @Getter
 @Setter
 @NoArgsConstructor
 public class BookModel {
 
     @jakarta.persistence.Id
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Setter(AccessLevel.PROTECTED)
     private int id;
 
     @Column(name = "original_title", nullable = false)
@@ -33,10 +32,10 @@ public class BookModel {
     private String isbn;
 
     @Column(name = "release_date", nullable = true)
-    private ZonedDateTime releaseDate;
+    private OffsetDateTime releaseDate;
 
     @Column(name = "edition_date", nullable = true)
-    private ZonedDateTime editionDate;
+    private OffsetDateTime editionDate;
 
     @Column(name = "edition", nullable = true)
     private String edition;
@@ -65,25 +64,31 @@ public class BookModel {
     @Enumerated(EnumType.ORDINAL)
     private BookAvailabilityModel availability;
 
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "publisher_id")
     private PublisherModel publisher;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+    @JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<AuthorModel> authors;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "genre", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @JoinTable(name = "book_genre", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<GenreModel> genres;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "format", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "format_id"))
+    @JoinTable(name = "book_format", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "format_id"))
     private List<FormatModel> formats;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "language", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "language_id"))
+    @JoinTable(name = "book_language", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "language_id"))
     private List<LanguageModel> languages;
 
-    @ElementCollection
-    private List<String> tags;
+    @OneToMany(mappedBy = "book", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private List<TagModel> tags = new ArrayList<TagModel>();
+
+    public void addTag(TagModel tag) {
+        tags.add(tag);
+        tag.setBook(this);
+    }
 }

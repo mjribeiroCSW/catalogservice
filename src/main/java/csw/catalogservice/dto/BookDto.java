@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -16,15 +17,15 @@ import java.util.Optional;
 @Setter
 @NoArgsConstructor
 public class BookDto {
-    public Optional<Integer> id = Optional.empty();
+    public int id;
 
     public String originalTitle;
 
     public String isbn;
 
-    public ZonedDateTime releaseDate;
+    public OffsetDateTime releaseDate;
 
-    public ZonedDateTime editionDate;
+    public OffsetDateTime editionDate;
 
     public String edition;
 
@@ -38,9 +39,9 @@ public class BookDto {
 
     public int stockAvailable;
 
-    public Optional<Instant> DateCreated = Optional.empty();
+    public Instant DateCreated;
 
-    public Optional<Instant> DateUpdated = Optional.empty();
+    public Instant DateUpdated;
 
     public BookAvailabilityDto availability;
 
@@ -54,29 +55,29 @@ public class BookDto {
 
     public List<LanguageDto> languages;
 
-    public List<String> tags;
+    public List<TagDto> tags;
 
     public BookDto(
-            Optional<Integer> id,
+            Integer id,
             String originalTitle,
             String isbn,
-            ZonedDateTime releaseDate,
-            ZonedDateTime editionDate,
+            OffsetDateTime releaseDate,
+            OffsetDateTime editionDate,
             String edition,
             boolean isSeries,
             String synopsis,
             Float price,
             Float promotionalPrice,
             int stockAvailable,
-            Optional<Instant> dateCreated,
-            Optional<Instant> dateUpdated,
+            Instant dateCreated,
+            Instant dateUpdated,
             BookAvailabilityDto availability,
             PublisherDto publisher,
             List<AuthorDto> authors,
             List<GenreDto> genres,
             List<FormatDto> formats,
             List<LanguageDto> languages,
-            List<String> tags) {
+            List<TagDto> tags) {
 
         this.id = id;
         this.originalTitle = originalTitle;

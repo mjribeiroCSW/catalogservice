@@ -1,19 +1,16 @@
 package csw.catalogservice.Models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
+@Table(name = "tag")
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "genre")
-public class GenreModel {
+public class TagModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +18,9 @@ public class GenreModel {
     private int id;
 
     @Column(name = "name", nullable = false)
-    @Size(max = 255)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "genres", cascade = CascadeType.ALL)
-    List<BookModel> books;
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private BookModel book;
 }
