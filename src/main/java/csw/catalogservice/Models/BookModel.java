@@ -8,13 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "book", schema = "bookschema")
+@Table(name = "book")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,10 +33,10 @@ public class BookModel {
     private String isbn;
 
     @Column(name = "release_date", nullable = true)
-    private OffsetDateTime releaseDate;
+    private LocalDateTime releaseDate;
 
     @Column(name = "edition_date", nullable = true)
-    private OffsetDateTime editionDate;
+    private LocalDateTime editionDate;
 
     @Column(name = "edition", nullable = true)
     private String edition;
@@ -62,6 +63,7 @@ public class BookModel {
     private Instant dateUpdated;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "availability", columnDefinition = "integer")
     private BookAvailabilityModel availability;
 
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })

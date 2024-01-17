@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 @Setter
@@ -23,9 +22,9 @@ public class BookDto {
 
     public String isbn;
 
-    public OffsetDateTime releaseDate;
+    public LocalDateTime releaseDate;
 
-    public OffsetDateTime editionDate;
+    public LocalDateTime editionDate;
 
     public String edition;
 
@@ -61,8 +60,8 @@ public class BookDto {
             Integer id,
             String originalTitle,
             String isbn,
-            OffsetDateTime releaseDate,
-            OffsetDateTime editionDate,
+            LocalDateTime releaseDate,
+            LocalDateTime editionDate,
             String edition,
             boolean isSeries,
             String synopsis,

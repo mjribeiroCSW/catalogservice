@@ -3,12 +3,14 @@ package csw.catalogservice.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class OAuth2ResourceServer
 {
     private static final String[] AUTH_WHITELIST = {
@@ -21,8 +23,8 @@ public class OAuth2ResourceServer
         http.cors(Customizer.withDefaults())
                 .csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize.requestMatchers(AUTH_WHITELIST).permitAll()
-                        //.anyRequest().authenticated())
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
+                        //.anyRequest().permitAll())
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(Customizer.withDefaults()));
 

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import csw.catalogservice.Models.BookModel;
-import csw.catalogservice.Models.enums.BookAvailabilityModel;
 import csw.catalogservice.dto.*;
 import csw.catalogservice.dto.enums.BookAvailabilityDto;
 import csw.catalogservice.dto.enums.FormatDto;
@@ -15,13 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+
+import java.time.*;
 import java.util.Arrays;
 import java.util.Optional;
-
 
 import java.sql.SQLException;
 
@@ -94,8 +90,8 @@ public class BookServiceTests {
                 1,
                 "Mock Title",
                 "123-456-789",
-                OffsetDateTime.now(),
-                OffsetDateTime.now(),
+                LocalDateTime.now(),
+                LocalDateTime.now(),
                 "1st Edition",
                 false,
                 "Mock Synopsis",

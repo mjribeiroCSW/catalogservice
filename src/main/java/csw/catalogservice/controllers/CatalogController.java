@@ -11,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +59,7 @@ public class CatalogController {
         }
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_read_books')")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = BookDto.class)), mediaType = "application/json")}),
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
@@ -70,8 +72,7 @@ public class CatalogController {
         return ResponseEntity.ok(result);
     }
 
-    // hasAnyAuthority for multiple
-    // @PreAuthorize("hasAnyAuthority('read_books', 'SCOPE_manage-books')")
+    @PreAuthorize("hasAuthority('SCOPE_read_books')")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = BookDto.class)), mediaType = "application/json")}),
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),

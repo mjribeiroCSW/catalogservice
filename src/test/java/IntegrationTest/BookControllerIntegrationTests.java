@@ -4,13 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import csw.catalogservice.CatalogServiceApplication;
-import csw.catalogservice.SecurityTestConfig;
 import csw.catalogservice.dto.BookDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,8 +19,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = {CatalogServiceApplication.class, SecurityTestConfig.class})
+@SpringBootTest(classes = {CatalogServiceApplication.class})
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
+@WithMockUser(authorities = {"SCOPE_read_books", "SCOPE_write_books"})
 public class BookControllerIntegrationTests {
 
     @Autowired
