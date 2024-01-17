@@ -148,25 +148,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- PIPELINE -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-						<configuration>
-							<includes>
-								<include>csw/catalogservice/dto/**/*.class</include>
-							</includes>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- PIPELINE -->
-
 			<!-- DB -->
 			<plugin>
 				<groupId>org.flywaydb</groupId>
