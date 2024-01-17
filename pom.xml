@@ -147,6 +147,7 @@
 					<release>17</release> <!-- Set the desired Java version -->
 				</configuration>
 			</plugin>
+
 			<!-- PIPELINE -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -165,6 +166,7 @@
 				</executions>
 			</plugin>
 			<!-- PIPELINE -->
+
 			<!-- DB -->
 			<plugin>
 				<groupId>org.flywaydb</groupId>
