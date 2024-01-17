@@ -27,6 +27,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
@@ -42,6 +48,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- DB -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId><!-- <version>10.5.0</version> -->
+    	</dependency>
+    	<dependency>
+			<groupId>org.postgresql</groupId>
+        	<artifactId>postgresql</artifactId><!-- <version>42.4.3</version> -->
+    	</dependency>
+    	<!-- DB -->
 
 		<!-- TESTS -->
 		<dependency>
@@ -130,7 +147,37 @@
 					<release>17</release> <!-- Set the desired Java version -->
 				</configuration>
 			</plugin>
+			<!-- PIPELINE -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<include>csw/catalogservice/dto/**/*.class</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- PIPELINE -->
+			<!-- DB -->
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>10.2.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<!-- DB -->
 		</plugins>
 	</build>
-
 </project>

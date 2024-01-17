@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        GITHUB_TOKEN = credentials('Github id')
+    }
+
     stages {
         // checkout de master, based on jenkins configuration
         stage('Checkout') {
@@ -38,6 +42,14 @@ pipeline {
             post {
                 always {
                     junit '**/target/surefire-reports/TEST-*.xml'
+                }
+            }
+        }
+
+        stage('Build and Publish') {
+            steps {
+                script {
+                    sh 'mvn -B deploy'
                 }
             }
         }
