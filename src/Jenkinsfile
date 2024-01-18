@@ -51,8 +51,10 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                withCredentials([string(credentialsId: 'b6bee003-094c-46e3-9a16-2ed3b8dc5b29', variable: 'ARTIFACTORY_TOKEN')]) {
-                sh "mvn deploy -Dartifactory.username=mateusjr -Dartifactory.password=$ARTIFACTORY_TOKEN -DskipTests"
+                withCredentials([string(credentialsId: 'b6bee003-094c-46e3-9a16-2ed3b8dc5b29', variable: 'ARTIFACTORY_TOKEN')])
+                {
+                    sh "mvn deploy -Dartifactory.username=mateusjr -Dartifactory.password=$ARTIFACTORY_TOKEN -DskipTests"
+                }
             }
         }
     }
