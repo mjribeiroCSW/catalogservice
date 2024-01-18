@@ -4,7 +4,7 @@ pipeline {
     environment {
         ARTIFACTORY_URL = 'https://mateusjr.jfrog.io/artifactory'
         ARTIFACTORY_REPO = 'catalog-libs-snapshot'
-        ARTIFACTORY_CREDS = credentials('e7bb3fe9-7dfa-4452-9ce0-c6fed1d4bbf6')
+        ARTIFACTORY_CREDS = credentials('b6bee003-094c-46e3-9a16-2ed3b8dc5b29')
     }
 
     stages {
@@ -51,10 +51,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'e7bb3fe9-7dfa-4452-9ce0-c6fed1d4bbf6', passwordVariable: 'ARTIFACTORY_PWD', usernameVariable: 'ARTIFACTORY_USER')])
-                {
-                    sh "mvn deploy -Dartifactory.username=$ARTIFACTORY_USER -Dartifactory.password=$ARTIFACTORY_PWD -DskipTests"
-                }
+                withCredentials([string(credentialsId: 'b6bee003-094c-46e3-9a16-2ed3b8dc5b29', variable: 'ARTIFACTORY_TOKEN')]) {
+                sh "mvn deploy -Dartifactory.username=mateusjr -Dartifactory.password=$ARTIFACTORY_TOKEN -DskipTests"
             }
         }
     }
