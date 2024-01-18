@@ -51,7 +51,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'ARTIFACTORY_CREDENTIALS_ID', passwordVariable: 'ARTIFACTORY_PWD', usernameVariable: 'ARTIFACTORY_USER')])
+                withCredentials([usernamePassword(credentialsId: 'e7bb3fe9-7dfa-4452-9ce0-c6fed1d4bbf6', passwordVariable: 'ARTIFACTORY_PWD', usernameVariable: 'ARTIFACTORY_USER')])
                 {
                     sh "mvn deploy -Dartifactory.username=$ARTIFACTORY_USER -Dartifactory.password=$ARTIFACTORY_PWD -DskipTests"
                 }
