@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        ARTIFACTORY_URL = 'https://mateusjr.jfrog.io/artifactory'
+        ARTIFACTORY_REPO = 'catalog-libs-snapshot'
+        ARTIFACTORY_CREDS = credentials('e7bb3fe9-7dfa-4452-9ce0-c6fed1d4bbf6')
+    }
+
     stages {
         // checkout de master, based on jenkins configuration
         stage('Checkout') {
@@ -38,6 +44,18 @@ pipeline {
             post {
                 always {
                     junit '**/target/surefire-reports/TEST-*.xml'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                expression { env.BRANCH_NAME == 'testing' || env.BRANCH_NAME == 'master' }
+            }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'ARTIFACTORY_CREDENTIALS_ID', passwordVariable: 'ARTIFACTORY_PWD', usernameVariable: 'ARTIFACTORY_USER')])
+                {
+                    sh "mvn deploy -Dartifactory.username=$ARTIFACTORY_USER -Dartifactory.password=$ARTIFACTORY_PWD -DskipTests"
                 }
             }
         }

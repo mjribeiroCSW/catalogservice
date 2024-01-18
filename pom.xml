@@ -16,6 +16,16 @@
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>a0ua5aldj1bq0-artifactory-primary-0-snapshots</name>
+			<url>https://mateusjr.jfrog.io/artifactory/catalog-libs-snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<!-- deploy jfrog -->
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -48,6 +58,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- SDK -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
+			<version>5.2.3</version>
+		</dependency>
+		<!-- SDK -->
 
 		<!-- DB -->
 		<dependency>
@@ -136,8 +159,7 @@
 			<version>6.2.1</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- End of Security Dependencies -->
-
+        <!-- End of Security Dependencies -->
 	</dependencies>
 
 	<build>
