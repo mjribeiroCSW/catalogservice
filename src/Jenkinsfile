@@ -16,7 +16,7 @@ pipeline {
 
         stage('Unit Test') {
             steps {
-                sh 'mvn -Dtest=BookServiceTests#testMethod test'
+                sh 'mvn -Dtest="csw/catalogservice/**" test'
             }
             post {
                 always {
@@ -27,7 +27,7 @@ pipeline {
 
         stage('Integration Test') {
             steps {
-                sh 'mvn -Dtest=BookControllerIntegrationTests#testMethod test'
+                sh 'mvn -Dtest="IntegrationTest/**" test'
             }
             post {
                 always {
@@ -36,9 +36,9 @@ pipeline {
             }
         }
 
-        stage('Deploy to Container Directory') {
+        stage('ARTIFACT PUBLISH') {
             steps {
-                sh 'cp -r target/*.jar /jenkins_artifacts'
+               echo 'Publish step skipped. This is just a pain in the ass for now.'
             }
         }
     }
