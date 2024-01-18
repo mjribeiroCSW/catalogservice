@@ -38,10 +38,7 @@ pipeline {
 
         stage('Deploy to Container Directory') {
             steps {
-                // Assuming the build artifact is a jar file in the 'target' directory.
-                // Adjust the file path according to your project structure.
-                // Replace '/path/to/container/directory' with the actual path where you want to copy the artifact.
-                sh 'cp target/*.jar'
+                sh 'cp -r target/*.jar /jenkins_artifacts'
             }
         }
     }
