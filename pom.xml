@@ -41,7 +41,6 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -58,6 +57,34 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- RABBIT -->
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>5.20.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<!-- RABBIT -->
+
+		<!-- Hangfire 7 JOBRUNR -->
+		<dependency>
+			<groupId>org.jobrunr</groupId>
+			<artifactId>jobrunr-spring-boot-3-starter</artifactId>
+			<version>6.3.4</version>
+		</dependency>
+		<!-- Hangfire 7 JOBRUNR -->
+
+		<!-- CONTRACT DTO -->
+		<dependency>
+			<groupId>com.catalog.contracts</groupId>
+			<artifactId>books</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+		<!-- CONTRACT DTO -->
 
 		<!-- SDK -->
 		<dependency>
@@ -159,7 +186,7 @@
 			<version>6.2.1</version>
 			<scope>test</scope>
 		</dependency>
-        <!-- End of Security Dependencies -->
+		<!-- End of Security Dependencies -->
 	</dependencies>
 
 	<build>

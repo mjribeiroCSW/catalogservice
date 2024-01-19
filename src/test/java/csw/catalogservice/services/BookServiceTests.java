@@ -10,6 +10,7 @@ import csw.catalogservice.dto.enums.FormatDto;
 import csw.catalogservice.dto.enums.GenreDto;
 import csw.catalogservice.repositories.BookRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -22,21 +23,25 @@ import java.util.Optional;
 import java.sql.SQLException;
 
 @SpringBootTest
+@Tag("Unit")
 public class BookServiceTests {
 
     @Mock
     private BookRepository bookRepository;
+    @Mock
+    private RaabitSenderService sender;
 
     private BookService bookService;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        bookService = new BookService(bookRepository);
+
+        bookService = new BookService(bookRepository, sender);
     }
 
     @Test
-    public void CreateBook_validCreate_returnsId() throws SQLException {
+    public void CreateBook_validCreate_returnsId() throws Exception {
         // Arrange
         var bookDto = this.createMockBookDto();
         var bookModel = new BookModel();

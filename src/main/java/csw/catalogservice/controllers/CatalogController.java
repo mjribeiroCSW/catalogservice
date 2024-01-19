@@ -59,14 +59,27 @@ public class CatalogController {
         }
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_read_books')")
+    @PreAuthorize("hasAuthority('SCOPE_write_books')")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = BookDto.class)), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
+            @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
+    @PostMapping("/BookWithError")
+    public ResponseEntity<Integer> createBookWithError(
+            @RequestBody BookDto bookDto) throws SQLException {
+        var result = bookService.CreateBookWithError(bookDto);
+
+        return ResponseEntity.ok(result);
+    }
+
+    @PreAuthorize("hasAuthority('SCOPE_write_books')")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {@Content(array = @ArraySchema(schema = @Schema(implementation = BookDto.class)), mediaType = "application/json")}),
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @PostMapping("/Book")
     public ResponseEntity<Integer> createBook(
-            @RequestBody BookDto bookDto) throws SQLException {
+            @RequestBody BookDto bookDto) throws Exception {
         var result = bookService.CreateBook(bookDto);
 
         return ResponseEntity.ok(result);
