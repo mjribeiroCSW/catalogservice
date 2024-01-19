@@ -142,7 +142,7 @@
 			<version>2.0.9</version>
 		</dependency>
 
-		<!-- Logback Classic-implementation of SLF4J, 2nd ranked logging framework -->
+		<!-- Logback, 2nd ranked logging framework -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
@@ -191,6 +191,7 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -205,11 +206,12 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<release>17</release> <!-- Set the desired Java version -->
+					<release>17</release>
 				</configuration>
 			</plugin>
 
