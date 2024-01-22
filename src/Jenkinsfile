@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean install -DskipTests -Dspring.profiles.active=jenkins'
+                sh 'mvn clean install -DskipTests -Pjenkins'
             }
         }
 
@@ -33,7 +33,7 @@ pipeline {
         stage('Integration Test') {
             steps {
                 sh 'mvn -Dtest="IntegrationTest/**" test'
-                ////sh 'mvn test -Dgroups="csw.catalogservice.services.Integration"'
+                //sh 'mvn test -Dgroups="csw.catalogservice.services.Integration"'
             }
             post {
                 always {
